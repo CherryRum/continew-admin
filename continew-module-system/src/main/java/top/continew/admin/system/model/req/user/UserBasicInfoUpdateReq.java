@@ -28,13 +28,13 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 用户基础信息修改参数
+ * 用户基础信息修改请求参数
  *
  * @author Charles7c
  * @since 2023/1/7 23:08
  */
 @Data
-@Schema(description = "用户基础信息修改参数")
+@Schema(description = "用户基础信息修改请求参数")
 public class UserBasicInfoUpdateReq implements Serializable {
 
     @Serial
@@ -52,6 +52,6 @@ public class UserBasicInfoUpdateReq implements Serializable {
      * 性别
      */
     @Schema(description = "性别", example = "1")
-    @NotNull(message = "性别非法")
+    @NotNull(message = "性别无效")
     private GenderEnum gender;
 }

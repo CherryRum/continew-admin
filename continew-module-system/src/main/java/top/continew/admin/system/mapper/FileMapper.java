@@ -18,7 +18,7 @@ package top.continew.admin.system.mapper;
 
 import org.apache.ibatis.annotations.Select;
 import top.continew.admin.system.model.entity.FileDO;
-import top.continew.admin.system.model.resp.FileStatisticsResp;
+import top.continew.admin.system.model.resp.file.FileStatisticsResp;
 import top.continew.starter.data.mp.base.BaseMapper;
 
 import java.util.List;
@@ -36,6 +36,6 @@ public interface FileMapper extends BaseMapper<FileDO> {
      *
      * @return 文件资源统计信息
      */
-    @Select("SELECT type, COUNT(1) number, SUM(size) size FROM sys_file GROUP BY type")
+    @Select("SELECT type, COUNT(1) number, SUM(size) size FROM sys_file WHERE type != 0 GROUP BY type")
     List<FileStatisticsResp> statistics();
 }

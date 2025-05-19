@@ -23,21 +23,21 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import top.continew.admin.system.enums.NoticeScopeEnum;
-import top.continew.starter.extension.crud.model.req.BaseReq;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 创建或修改公告参数
+ * 公告创建或修改请求参数
  *
  * @author Charles7c
  * @since 2023/8/20 10:55
  */
 @Data
-@Schema(description = "创建或修改公告参数")
-public class NoticeReq extends BaseReq {
+@Schema(description = "公告创建或修改请求参数")
+public class NoticeReq implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

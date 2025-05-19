@@ -16,14 +16,20 @@
 
 package top.continew.admin.system.model.entity;
 
+import cn.hutool.core.lang.RegexPool;
+import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import top.continew.admin.common.enums.DisEnableStatusEnum;
-import top.continew.admin.system.enums.StorageTypeEnum;
 import top.continew.admin.common.model.entity.BaseDO;
+import top.continew.admin.system.enums.StorageTypeEnum;
+import top.continew.starter.core.constant.StringConstants;
 import top.continew.starter.security.crypto.annotation.FieldEncrypt;
 
 import java.io.Serial;
+import java.net.URL;
 
 /**
  * 存储实体
@@ -54,24 +60,24 @@ public class StorageDO extends BaseDO {
     private StorageTypeEnum type;
 
     /**
-     * Access Key（访问密钥）
+     * Access Key
      */
     @FieldEncrypt
     private String accessKey;
 
     /**
-     * Secret Key（私有密钥）
+     * Secret Key
      */
     @FieldEncrypt
     private String secretKey;
 
     /**
-     * Endpoint（终端节点）
+     * Endpoint
      */
     private String endpoint;
 
     /**
-     * 桶名称
+     * Bucket
      */
     private String bucketName;
 
@@ -99,4 +105,28 @@ public class StorageDO extends BaseDO {
      * 状态
      */
     private DisEnableStatusEnum status;
+
+    /**
+     * 获取 URL 前缀
+     * <p>
+     * LOCAL：{@link #domain}/ <br />
+     * OSS：域名不为空：{@link #domain}/；Endpoint 不是
+     * IP：http(s)://{@link #bucketName}.{@link #endpoint}/；否则：{@link #endpoint}/{@link #bucketName}/
+     * </p>
+     *
+     * @return URL 前缀
+     */
+    public String getUrlPrefix() {
+        if (StrUtil.isNotBlank(this.domain) || StorageTypeEnum.LOCAL.equals(this.type)) {
+            return StrUtil.appendIfMissing(this.domain, StringConstants.SLASH);
+        }
+        URL url = URLUtil.url(this.endpoint);
+        String host = url.getHost();
+        // IP（MinIO） 则拼接 BucketName
+        if (ReUtil.isMatch(RegexPool.IPV4, host) || ReUtil.isMatch(RegexPool.IPV6, host)) {
+            return StrUtil
+                .appendIfMissing(this.endpoint, StringConstants.SLASH) + this.bucketName + StringConstants.SLASH;
+        }
+        return "%s://%s.%s/".formatted(url.getProtocol(), this.bucketName, host);
+    }
 }

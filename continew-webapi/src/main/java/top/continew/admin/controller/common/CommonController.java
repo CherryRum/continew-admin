@@ -33,13 +33,14 @@ import org.springframework.web.multipart.MultipartFile;
 import top.continew.admin.common.constant.CacheConstants;
 import top.continew.admin.system.enums.OptionCategoryEnum;
 import top.continew.admin.system.model.query.*;
-import top.continew.admin.system.model.resp.FileUploadResp;
+import top.continew.admin.system.model.resp.file.FileUploadResp;
 import top.continew.admin.system.service.*;
 import top.continew.starter.core.validation.ValidationUtils;
 import top.continew.starter.extension.crud.model.query.SortQuery;
 import top.continew.starter.extension.crud.model.resp.LabelValueResp;
 import top.continew.starter.log.annotation.Log;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -66,10 +67,16 @@ public class CommonController {
 
     @Operation(summary = "上传文件", description = "上传文件")
     @PostMapping("/file")
-    public FileUploadResp upload(@NotNull(message = "文件不能为空") MultipartFile file) {
+    public FileUploadResp upload(@NotNull(message = "文件不能为空") MultipartFile file,
+                                 String parentPath) throws IOException {
         ValidationUtils.throwIf(file::isEmpty, "文件不能为空");
-        FileInfo fileInfo = fileService.upload(file);
-        return FileUploadResp.builder().url(fileInfo.getUrl()).build();
+        FileInfo fileInfo = fileService.upload(file, parentPath);
+        return FileUploadResp.builder()
+            .id(fileInfo.getId())
+            .url(fileInfo.getUrl())
+            .thUrl(fileInfo.getThUrl())
+            .metadata(fileInfo.getMetadata())
+            .build();
     }
 
     @Operation(summary = "查询部门树", description = "查询树结构的部门列表")

@@ -46,25 +46,15 @@ public class ClientDO extends BaseDO {
     private String clientId;
 
     /**
-     * 客户端 Key
+     * 客户端类型
      */
-    private String clientKey;
-
-    /**
-     * 客户端秘钥
-     */
-    private String clientSecret;
+    private String clientType;
 
     /**
      * 登录类型
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> authType;
-
-    /**
-     * 客户端类型
-     */
-    private String clientType;
 
     /**
      * Token 最低活跃频率（单位：秒，-1：不限制，永不冻结）

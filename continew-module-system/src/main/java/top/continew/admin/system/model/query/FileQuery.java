@@ -41,9 +41,15 @@ public class FileQuery implements Serializable {
     /**
      * 名称
      */
-    @Schema(description = "名称", example = "图片")
+    @Schema(description = "名称", example = "example")
     @Query(type = QueryType.LIKE)
-    private String name;
+    private String originalName;
+
+    /**
+     * 上级目录
+     */
+    @Schema(description = "上级目录", example = "/")
+    private String parentPath;
 
     /**
      * 类型

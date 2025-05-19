@@ -33,7 +33,7 @@ public interface ClientService extends BaseService<ClientResp, ClientResp, Clien
     /**
      * 根据客户端 ID 查詢
      *
-     * @param clientId 客戶端 ID
+     * @param clientId 客户端 ID
      * @return 客户端信息
      */
     ClientResp getByClientId(String clientId);

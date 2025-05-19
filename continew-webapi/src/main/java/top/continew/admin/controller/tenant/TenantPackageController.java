@@ -59,7 +59,7 @@ import java.util.List;
 @Tag(name = "租户套餐管理 API")
 @RestController
 @AllArgsConstructor
-@CrudRequestMapping(value = "/tenant/package", api = {Api.LIST, Api.PAGE, Api.DETAIL, Api.ADD, Api.UPDATE, Api.DELETE})
+@CrudRequestMapping(value = "/tenant/package", api = {Api.LIST, Api.PAGE, Api.GET, Api.CREATE, Api.UPDATE, Api.DELETE})
 public class TenantPackageController extends BaseController<TenantPackageService, TenantPackageResp, TenantPackageDetailResp, TenantPackageQuery, TenantPackageReq> {
 
     private final MenuService menuService;
@@ -67,7 +67,7 @@ public class TenantPackageController extends BaseController<TenantPackageService
     private final TenantService tenantService;
 
     @GetMapping("/menuTree")
-    @SaCheckPermission("tenant:package:detail")
+    @SaCheckPermission("tenant:package:get")
     @Operation(summary = "获取租户套餐菜单", description = "获取租户套餐菜单")
     public List<Tree<Long>> menuTree() {
         MenuQuery query = new MenuQuery();
@@ -108,7 +108,7 @@ public class TenantPackageController extends BaseController<TenantPackageService
                     tenantDOList.forEach(tenantDO -> SpringUtil.getBean(TenantHandler.class)
                         .execute(tenantDO.getId(), () -> menuService.addTenantMenu(addMenu, pMenu)));
                 }
-                RedisUtils.deleteByPattern(CacheConstants.MENU_KEY_PREFIX + StringConstants.ASTERISK);
+                RedisUtils.deleteByPattern(CacheConstants.ROLE_MENU_KEY_PREFIX + StringConstants.ASTERISK);
             }
         }
         super.update(req, id);

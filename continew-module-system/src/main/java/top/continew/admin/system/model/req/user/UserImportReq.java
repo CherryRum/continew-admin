@@ -22,19 +22,19 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import top.continew.admin.common.enums.DisEnableStatusEnum;
 import top.continew.admin.system.enums.ImportPolicyEnum;
-import top.continew.starter.extension.crud.model.req.BaseReq;
 
 import java.io.Serial;
+import java.io.Serializable;
 
 /**
- * 用户导入参数
+ * 用户导入请求参数
  *
  * @author Kils
  * @since 2024-6-17 16:42
  */
 @Data
-@Schema(description = "用户导入参数")
-public class UserImportReq extends BaseReq {
+@Schema(description = "用户导入请求参数")
+public class UserImportReq implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

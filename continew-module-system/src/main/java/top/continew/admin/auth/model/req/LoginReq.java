@@ -28,7 +28,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 登录参数基类
+ * 登录请求参数基类
  *
  * @author KAI
  * @author Charles7c
@@ -40,7 +40,7 @@ import java.io.Serializable;
     @JsonSubTypes.Type(value = EmailLoginReq.class, name = "EMAIL"),
     @JsonSubTypes.Type(value = PhoneLoginReq.class, name = "PHONE"),
     @JsonSubTypes.Type(value = SocialLoginReq.class, name = "SOCIAL")})
-@Schema(description = "基础登录参数")
+@Schema(description = "登录请求参数基类")
 public class LoginReq implements Serializable {
 
     @Serial
@@ -57,6 +57,6 @@ public class LoginReq implements Serializable {
      * 认证类型
      */
     @Schema(description = "认证类型", example = "ACCOUNT")
-    @NotNull(message = "认证类型非法")
+    @NotNull(message = "认证类型无效")
     private AuthTypeEnum authType;
 }

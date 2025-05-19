@@ -23,19 +23,19 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import top.continew.admin.common.enums.DisEnableStatusEnum;
-import top.continew.starter.extension.crud.model.req.BaseReq;
 
 import java.io.Serial;
+import java.io.Serializable;
 
 /**
- * 创建或修改部门参数
+ * 部门创建或修改请求参数
  *
  * @author Charles7c
  * @since 2023/1/24 00:21
  */
 @Data
-@Schema(description = "创建或修改部门参数")
-public class DeptReq extends BaseReq {
+@Schema(description = "部门创建或修改请求参数")
+public class DeptReq implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

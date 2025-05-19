@@ -22,19 +22,19 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import top.continew.admin.common.constant.RegexConstants;
-import top.continew.starter.extension.crud.model.req.BaseReq;
 
 import java.io.Serial;
+import java.io.Serializable;
 
 /**
- * 创建或修改字典参数
+ * 字典创建或修改请求参数
  *
  * @author Charles7c
  * @since 2023/9/11 21:29
  */
 @Data
-@Schema(description = "创建或修改字典参数")
-public class DictReq extends BaseReq {
+@Schema(description = "字典创建或修改请求参数")
+public class DictReq implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

@@ -22,19 +22,19 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import top.continew.admin.system.enums.MessageTypeEnum;
-import top.continew.starter.extension.crud.model.req.BaseReq;
 
 import java.io.Serial;
+import java.io.Serializable;
 
 /**
- * 创建消息参数
+ * 消息创建请求参数
  *
  * @author Bull-BCLS
  * @since 2023/10/15 19:05
  */
 @Data
-@Schema(description = "创建消息参数")
-public class MessageReq extends BaseReq {
+@Schema(description = "消息创建请求参数")
+public class MessageReq implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -59,6 +59,6 @@ public class MessageReq extends BaseReq {
      * 类型
      */
     @Schema(description = "类型（1：系统消息）", example = "1")
-    @NotNull(message = "类型非法")
+    @NotNull(message = "类型无效")
     private MessageTypeEnum type;
 }
